@@ -1,3 +1,3 @@
-# Learning Javascript Number
+# Learning JavaScript Address Book
 
-my website : [ajinbramantio-address-book.com](ajinbramantio-address-book.netlify.com)
+Address Book App: [ajinbramantio-address-book](ajinbramantio-address-book.netlify.com)

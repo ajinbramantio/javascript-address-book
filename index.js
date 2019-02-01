@@ -1,52 +1,70 @@
-var addressBooks = [
-  { id: 0, name: 'ajin', address: 'jln gardu' },
-  { id: 1, name: 'bara', address: 'jln kaki' }
+let contacts = [
+  // array of contacts
 ]
-var newId = addressBooks[addressBooks.length - 1].id
 
-const addressBookContacts = {
+let newId = contacts.length > 0 ? contacts[contacts.length - 1].id : 1
+
+const addressBook = {
+  // Display contacts
   display: function() {
-    addressBooks.forEach(addressBook => {
-      addressBookContactsString = `${addressBook.id} ${addressBook.name}`
-      console.log(addressBookContactsString)
-    })
+    if (contacts.length > 0) {
+      contacts.forEach(contact => {
+        contactsString = `${contact.id}: ${contact.name} - ${contact.address}`
+        console.log(contactsString)
+      })
+    } else {
+      console.warn('Address book is empty!')
+    }
   },
 
-  // add addressBookContacts
-  add: function(name, address) {
-    newId += 1
+  // Add new contact
+  addContact: function(name, address) {
     const input = {
       id: newId,
       name,
       address
     }
-    addressBooks.push(input)
+    contacts.push(input)
+    newId += 1
   },
 
-  // delete addressBookContacts
-  deleted: function(addressBookId) {
-    var dataContacts = addressBooks.filter(addressBook => {
-      return addressBook.id !== addressBookId
+  // Delete one contact
+  deleteContactById: function(addressBookId) {
+    var dataContacts = contacts.filter(contacts => {
+      return contacts.id !== addressBookId
     })
-    addressBooks = dataContacts
+    contacts = dataContacts
   },
 
-  // search addressBookContacts
-  search: function(name) {
-    const searchData = addressBooks.filter(addressBook => {
-      return addressBook.name === name
-    })
-    const resultSearch = `Name: ${searchData[0].name}\naddress: ${
-      searchData[0].address
-    }`
-    console.log(resultSearch)
+  // Search contact by name
+  searchByName: function(name) {
+    if (contacts.length > 0) {
+      const searchData = contacts.find(contact => contact.name === name)
+
+      if (searchData) {
+        const resultSearch = `Name: ${searchData.name}
+address: ${searchData.address}`
+        return resultSearch
+      } else {
+        console.warn('Contact is not found!')
+      }
+    } else {
+      console.warn('Address book is empty!')
+    }
   }
 }
-addressBookContacts.add('cakti', 'jln di tinggal kawin')
-addressBookContacts.add('ari', 'back to pakistan')
-addressBookContacts.add('mario', 'jln menuju fox pondik indah')
-addressBookContacts.add('jonathan', 'canada jos gandos')
-addressBookContacts.deleted(1)
-addressBookContacts.search('cakti')
 
-addressBookContacts.display()
+addressBook.display()
+
+addressBook.addContact('Cakti', 'Jl. di tinggal kawin')
+addressBook.addContact('Ari', 'Jl. back to pakistan')
+addressBook.addContact('Mario', 'Jl. menuju fox pondok indah')
+addressBook.addContact('Jonathan', 'Canada jos gandos')
+addressBook.addContact('Haidar', 'Planet mars')
+
+addressBook.deleteContactById(2)
+
+const searchResult = addressBook.searchByName('Cakti')
+console.log(searchResult)
+
+addressBook.display()
